@@ -3,6 +3,14 @@
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.profile-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .profile-header {
@@ -60,6 +68,14 @@
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 4px 15px var(--shadow-color);
+    overflow-y: auto;
+    max-height: calc(90vh - 200px); /* Account for header and padding */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.profile-form::-webkit-scrollbar {
+    display: none;
 }
 
 .form-group {
@@ -203,14 +219,22 @@
 @media (max-width: 768px) {
     .profile-container {
         padding: 1rem;
+        max-height: 85vh;
     }
 
     .profile-form {
         padding: 1.5rem;
+        max-height: calc(85vh - 180px);
     }
 
     .form-actions {
         flex-direction: column;
+        position: sticky;
+        bottom: 0;
+        background: var(--editor-bg);
+        padding-top: 1rem;
+        margin-top: 1rem;
+        border-top: 1px solid var(--border-color);
     }
 
     .primary-btn, .secondary-btn {
