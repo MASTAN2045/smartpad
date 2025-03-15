@@ -75,6 +75,8 @@ h1 {
     background: var(--toolbar-bg);
     border-bottom: 2px solid var(--primary-color);
     gap: 20px;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
 }
 
 .logo {
@@ -144,9 +146,9 @@ h1 {
 .tools {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding-left: 15px;
-    border-left: 1px solid var(--border-color);
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .tool-btn {
@@ -371,49 +373,45 @@ textarea:focus {
 }
 
 .share-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--toolbar-bg);
-    border: 1px solid var(--border-color);
+    position: fixed;
+    background: var(--editor-bg);
+    border: 1px solid var(--primary-color);
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--shadow-color);
     display: none;
     z-index: 1000;
-    min-width: 160px;
-    margin-top: 4px;
+    min-width: 90px;
+    padding: 2px;
+    backdrop-filter: blur(10px);
 }
 
-.share-dropdown::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: 15px;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--toolbar-bg);
+/* Position dropdowns below their respective buttons */
+.share-dropdown {
+    top: 60px;  /* Position below the toolbar */
+    right: 100px; /* Align with share button */
 }
 
 .share-option {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
+    gap: 4px;
+    padding: 5px 8px;
     border: none;
     background: none;
     width: 100%;
     text-align: left;
     color: var(--text-color);
-    font-size: 13px;
+    font-size: 11px;
     cursor: pointer;
 }
 
 .share-option:hover {
-    background: var(--hover-color);
+    background-color: var(--button-hover);
+    transform: translateX(1px);
 }
 
 .share-option i {
-    width: 16px;
+    width: 12px;
 }
 
 .share-option .fa-whatsapp {
@@ -520,10 +518,16 @@ textarea:focus {
 .formatting-toolbar {
     display: flex;
     align-items: center;
-    gap: 15px;
-    flex: 1;
-    padding-right: 15px;
-    border-right: 1px solid var(--border-color);
+    gap: 10px;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.formatting-toolbar::-webkit-scrollbar {
+    display: none;
 }
 
 .font-size-control {
@@ -575,15 +579,20 @@ textarea:focus {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .toolbar {
-        flex-wrap: wrap;
+        padding: 10px;
         gap: 10px;
     }
-    
+
     .formatting-toolbar {
-        order: 3;
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 5px;
+        gap: 5px;
+    }
+
+    .tools {
+        gap: 5px;
+    }
+
+    .download-dropdown, .share-dropdown {
+        min-width: 160px;
     }
 }
 
@@ -594,49 +603,49 @@ textarea:focus {
 }
 
 .download-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--toolbar-bg);
-    border: 1px solid var(--border-color);
+    position: fixed;
+    background: var(--editor-bg);
+    border: 1px solid var(--primary-color);
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--shadow-color);
     display: none;
     z-index: 1000;
-    min-width: 160px;
-    margin-top: 4px;
+    min-width: 90px;
+    padding: 2px;
+    backdrop-filter: blur(10px);
 }
 
-.download-dropdown::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: 15px;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--toolbar-bg);
+/* Position dropdowns below their respective buttons */
+.download-dropdown {
+    top: 65px;  /* Position below the toolbar in notepad area */
+    right: 140px; /* Align with download button */
 }
 
 .download-option {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
+    gap: 4px;
+    padding: 6px 10px;
+    width: 100%;
     border: none;
     background: none;
-    width: 100%;
-    text-align: left;
     color: var(--text-color);
-    font-size: 13px;
     cursor: pointer;
+    font-size: 11px;
+    text-align: left;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .download-option:hover {
-    background: var(--hover-color);
+    background-color: var(--button-hover);
+    transform: translateX(1px);
 }
 
 .download-option i {
-    width: 16px;
+    width: 12px;
+    font-size: 11px;
 }
 
 .download-option .fa-file-alt {
@@ -645,23 +654,6 @@ textarea:focus {
 
 .download-option .fa-file-pdf {
     color: #f44336;
-}
-
-/* Animation for dropdown */
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.download-dropdown.show {
-    display: block;
-    animation: slideDown 0.3s ease forwards;
 }
 
 /* Filename Modal Styles */
@@ -883,50 +875,62 @@ textarea:focus {
     color: var(--error-color);
 }
 
-/* Dropdown menus */
-.download-dropdown,
-.share-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--toolbar-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: none;
-    z-index: 1000;
-    min-width: 160px;
-    margin-top: 4px;
-}
-
-.download-option,
-.share-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    color: var(--text-color);
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.download-option:hover,
-.share-option:hover {
-    background: var(--hover-color);
-}
-
-.download-option i,
-.share-option i {
-    width: 16px;
-}
-
+/* Show dropdowns on hover with improved interaction */
 .download-container:hover .download-dropdown,
-.share-container:hover .share-dropdown {
+.share-container:hover .share-dropdown,
+.download-dropdown:hover,
+.share-dropdown:hover {
     display: block;
+    animation: fadeInDropdown 0.2s ease forwards;
+}
+
+/* Animation for dropdowns */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .download-dropdown,
+[data-theme="dark"] .share-dropdown {
+    background-color: #2d2d2d;
+    border-color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .download-dropdown {
+        right: 100px;
+    }
+    
+    .share-dropdown {
+        right: 70px;
+    }
+    
+    .download-dropdown, .share-dropdown {
+        min-width: 80px;
+        top: 55px;
+    }
+
+    .download-container::after,
+    .share-container::after {
+        top: 40px;
+        width: 80px;
+    }
+
+    .download-container::after {
+        right: 100px;
+    }
+
+    .share-container::after {
+        right: 70px;
+    }
 }
 
 /* Profile button styles */
@@ -1257,5 +1261,161 @@ textarea:focus {
     
     .editor-container {
         min-height: calc(90vh - 60px);
+    }
+}
+
+/* Arrow indicators for dropdowns */
+.download-container .tool-btn::after,
+.share-container .tool-btn::after {
+    content: '▼';
+    font-size: 8px;
+    margin-left: 2px;
+    opacity: 0.7;
+}
+
+/* Active state for dropdown buttons */
+.download-container:hover .tool-btn,
+.share-container:hover .tool-btn {
+    background-color: var(--button-hover);
+    border-color: var(--primary-color);
+}
+.tool-btn {
+    cursor: pointer;
+}
+/* Download and Share Dropdown Styles */
+.download-container, .share-container {
+    position: relative;
+    display: inline-block;
+}
+.dropdown:hover {
+    display: block; /* Keep dropdown visible when hovered */
+}
+
+.download-dropdown, .share-dropdown {
+    position: fixed;
+    background: var(--editor-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    display: none;
+    z-index: 1000;
+    min-width: 90px;
+    padding: 2px;
+    backdrop-filter: blur(10px);
+}
+
+/* Position dropdowns in notepad area below their buttons */
+.download-dropdown {
+    top: 65px;  /* Position below the toolbar in notepad area */
+    right: 140px; /* Align with download button */
+}
+
+.share-dropdown {
+    top: 65px;  /* Position below the toolbar in notepad area */
+    right: 100px; /* Align with share button */
+}
+
+/* Create invisible bridge to prevent gap between button and dropdown */
+.download-container::after,
+.share-container::after {
+    content: '';
+    position: fixed;
+    top: 45px;  /* Position just below the button */
+    width: 90px;
+    height: 20px;
+    background: transparent;
+    z-index: 999;
+}
+
+.download-container::after {
+    right: 140px;
+}
+
+.share-container::after {
+    right: 100px;
+}
+
+.download-option, .share-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    width: 100%;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 11px;
+    text-align: left;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.download-option:hover, .share-option:hover {
+    background-color: var(--button-hover);
+    transform: translateX(1px);
+}
+
+.download-option i, .share-option i {
+    width: 12px;
+    font-size: 11px;
+}
+
+/* Show dropdowns on hover with improved interaction */
+.download-container:hover .download-dropdown,
+.share-container:hover .share-dropdown,
+.download-dropdown:hover,
+.share-dropdown:hover {
+    display: block;
+    animation: fadeInDropdown 0.2s ease forwards;
+}
+
+/* Animation for dropdowns */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .download-dropdown,
+[data-theme="dark"] .share-dropdown {
+    background-color: #2d2d2d;
+    border-color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .download-dropdown {
+        right: 100px;
+    }
+    
+    .share-dropdown {
+        right: 70px;
+    }
+    
+    .download-dropdown, .share-dropdown {
+        min-width: 80px;
+        top: 55px;
+    }
+
+    .download-container::after,
+    .share-container::after {
+        top: 40px;
+        width: 80px;
+    }
+
+    .download-container::after {
+        right: 100px;
+    }
+
+    .share-container::after {
+        right: 70px;
     }
 }       
