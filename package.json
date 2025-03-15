@@ -1,0 +1,25 @@
+{
+  "name": "smartpad",
+  "version": "1.0.0",
+  "description": "Modern Online Notepad Application",
+  "main": "index.html",
+  "homepage": "https://mastan2045.github.io/smartpad",
+  "scripts": {
+    "start": "browser-sync start --server --files '*.html, *.css, *.js' --port 3000",
+    "dev": "browser-sync start --server --files '*.html, *.css, *.js' --port 3000",
+    "build": "npm install"
+  },
+  "keywords": [
+    "notepad",
+    "text-editor",
+    "online-editor"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.29.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

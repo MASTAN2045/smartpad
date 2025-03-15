@@ -1,0 +1,25 @@
+{
+    "framework": "static",
+    "outputDirectory": ".",
+    "buildCommand": false,
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/login",
+            "dest": "/login.html"
+        },
+        {
+            "src": "/profile",
+            "dest": "/profile.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/$1"
+        }
+    ]
+} 
