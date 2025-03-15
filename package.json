@@ -7,9 +7,9 @@
   "scripts": {
     "start": "browser-sync start --server --files '*.html, *.css, *.js' --port 3000",
     "dev": "browser-sync start --server --files '*.html, *.css, *.js' --port 3000",
-    "clean": "if exist build rd /s /q build",
-    "prebuild": "npm run clean && mkdir build",
-    "build": "npm install && xcopy /E /I /Y *.html build\\ && xcopy /E /I /Y *.css build\\ && xcopy /E /I /Y *.js build\\ && xcopy /E /I /Y favicon.svg build\\"
+    "clean": "if exist docs rd /s /q docs",
+    "prebuild": "npm run clean && mkdir docs",
+    "build": "npm install && (for %i in (index.html login.html profile.html) do xcopy /Y %i docs\\) && (for %i in (*.css) do xcopy /Y %i docs\\) && (for %i in (*.js) do xcopy /Y %i docs\\) && xcopy /Y favicon.svg docs\\"
   },
   "keywords": [
     "notepad",
