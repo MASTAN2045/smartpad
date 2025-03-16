@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const togglePasswords = document.querySelectorAll('.toggle-password');
     const loginBtn = document.getElementById('loginBtn');
     const signupBtn = document.getElementById('signupBtn');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
 
     // Tab Switching
     tabBtns.forEach(btn => {
@@ -37,11 +39,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Login Handler
-    loginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
+    // Add keyboard accessibility to login form
+    loginForm.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            loginBtn.click();
+        }
+    });
+
+    // Add keyboard accessibility to login button
+    loginBtn.setAttribute('role', 'button');
+    loginBtn.setAttribute('tabindex', '0');
+    loginBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleLogin();
+        }
+    });
+
+    // Login Handler Function
+    function handleLogin() {
+        const email = loginEmail.value;
+        const password = loginPassword.value;
         const rememberMe = document.getElementById('rememberMe').checked;
 
         // Get stored users
@@ -61,6 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             showNotification('Invalid email or password!', 'error');
         }
+    }
+
+    // Login Button Click Handler
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleLogin();
     });
 
     // Signup Handler

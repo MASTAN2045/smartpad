@@ -829,4 +829,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add save button event listener
     document.getElementById('saveBtn').addEventListener('click', promptAndSave);
+
+    // Add keyboard accessibility to all buttons
+    function addKeyboardAccessibility(button, callback) {
+        // Add role and tabindex for accessibility
+        button.setAttribute('role', 'button');
+        button.setAttribute('tabindex', '0');
+        
+        // Add keyboard event listeners
+        button.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                callback();
+            }
+        });
+    }
+
+    // Add keyboard accessibility to all toolbar buttons
+    const toolbarButtons = [
+        saveBtn, copyBtn, downloadBtn, shareBtn, newBtn, micBtn,
+        themeToggle, savedNotesBtn
+    ];
+
+    toolbarButtons.forEach(button => {
+        if (button) {
+            addKeyboardAccessibility(button, () => {
+                button.click();
+            });
+        }
+    });
+
+    // Add keyboard accessibility to formatting buttons
+    const formattingButtons = [
+        boldBtn, italicBtn, underlineBtn, strikeBtn,
+        alignLeft, alignCenter, alignRight
+    ];
+
+    formattingButtons.forEach(button => {
+        if (button) {
+            addKeyboardAccessibility(button, () => {
+                button.click();
+            });
+        }
+    });
+
+    // Add keyboard accessibility to share dropdown items
+    const shareItems = [whatsappShare, emailShare, copyLink];
+    shareItems.forEach(item => {
+        if (item) {
+            addKeyboardAccessibility(item, () => {
+                item.click();
+            });
+        }
+    });
+
+    // Add keyboard accessibility to note action buttons
+    function addKeyboardAccessibilityToNoteButtons() {
+        const noteActionButtons = document.querySelectorAll('.note-action-btn');
+        noteActionButtons.forEach(button => {
+            addKeyboardAccessibility(button, () => {
+                button.click();
+            });
+        });
+    }
+
+    // Update note buttons accessibility when loading notes
+    const originalLoadSavedNotes = loadSavedNotes;
+    loadSavedNotes = function() {
+        originalLoadSavedNotes();
+        addKeyboardAccessibilityToNoteButtons();
+    };
+
+    // Add keyboard accessibility to modal close button
+    const closeModalBtn = document.querySelector('.modal-close');
+    if (closeModalBtn) {
+        addKeyboardAccessibility(closeModalBtn, () => {
+            savedNotesModal.style.display = 'none';
+        });
+    }
+
+    // Add keyboard accessibility to change avatar button
+    const changeAvatarBtn = document.querySelector('.change-avatar-btn');
+    if (changeAvatarBtn) {
+        addKeyboardAccessibility(changeAvatarBtn, () => {
+            changeAvatarBtn.click();
+        });
+    }
+
+    // Add keyboard accessibility to form action buttons
+    const formActionButtons = document.querySelectorAll('.form-actions button');
+    formActionButtons.forEach(button => {
+        addKeyboardAccessibility(button, () => {
+            button.click();
+        });
+    });
 }); 
